@@ -18,7 +18,7 @@ def browser():
 
 def test_can_start_a_list_and_retrieve_it_later(browser):
     # Edith heard about te app. She opens it in her browser.
-    browser.get("http://localhost:8000")
+    browser.get("http://localhost:8000/home/home")
 
     # She checks the page title to ensure it has "To-Do" in it
     assert 'To-Do' in browser.title
