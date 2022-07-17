@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+
 
 import pytest
 import time
@@ -20,25 +22,27 @@ def browser():
 
 def test_can_start_a_list_and_retrieve_it_later(browser):
     # Edith heard about te app. She opens it in her browser.
-    browser.get("http://localhost:8000/home/home")
+    browser.get("http://localhost:8000/home/")
+
+    
 
     # She checks the page title to ensure it has "To-Do" in it
     assert 'To-Do' in browser.title
 
     # She notices that the head line mentions To-Do lists
-    assert 'To-Do' in browser.find_element_by_tag('h1').text
+    assert 'To-Do' in browser.find_element(By.TAG_NAME,'h1').text
 
     # She is invited to enter a To-Do item
-    assert 'Enter a to-do item' in browser.find_element_by_id('id_new_item').get_attribute('placeholder')
+    assert 'Enter a to-do item' in browser.find_element(By.ID,'id_new_item').get_attribute('placeholder')
 
     # She types "Buy peacock feathers"
     # She hits enter. Page updates. Displays "1: Buy peacock feathers" as an item.
-    browser.find_element_by_id('id_new_item').send_keys('Buy peacock feathers')
-    browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
+    browser.find_element(By.ID,'id_new_item').send_keys('Buy peacock feathers')
+    browser.find_element(By.ID,'id_new_item').send_keys(Keys.ENTER)
     time.sleep(2)
 
-    table = browser.find_element_by_id('id_list_table')
-    rows = table.find_elements_by_tag_name('tr') 
+    table = browser.find_element(By.ID,'id_list_table')
+    rows = table.find_elements(By.TAG_NAME,'tr') 
 
     assert any(row.text == '1: Buy peacock feathers' for row in rows) == True
 

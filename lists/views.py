@@ -1,9 +1,15 @@
+import re
 from django.shortcuts import render
-from django.http import HttpResponse
+
+from lists.forms import InputToDoListItemForm
+
 
 home_page=None
 def home_page(request):
-    return HttpResponse('<html><title>To-Do lists</title>')
+    form = InputToDoListItemForm()
 
+    context={'form': form}
+
+    return render(request, 'lists/home.html', context)
 
 
