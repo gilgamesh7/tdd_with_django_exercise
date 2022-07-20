@@ -7,9 +7,11 @@
             <h1> To-Do List </h1>
         </div>
         <div>
-            <form action="" method="get">
+            <form action="" method="POST">
+                {% csrf_token %}
                 <input id="id_new_item" placeholder="Enter a to-do item"/>
                 <table id="id_list_table">
+                    <tr><td> {{ new_item_text }} </td></tr>
                 </table>
             </form>
         </div>
